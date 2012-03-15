@@ -1,7 +1,8 @@
 " JumpToTrailingWhitespace.vim: Motions to locate unwanted whitespace at the end of lines.
 "
 " DEPENDENCIES:
-"   - ShowTrailingWhitespace plugin (optional)
+"   - CountJump.vim, CountJump/Motion.vim autoload scripts
+"   - ShowTrailingWhitespace.vim autoload script (optional)
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -19,6 +20,14 @@ let g:loaded_JumpToTrailingWhitespace = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+"- configuration ---------------------------------------------------------------
+
+if ! exists('g:JumpToTrailingWhitespace_mapping')
+    let g:JumpToTrailingWhitespace_mapping = '$'
+endif
+
+
+"- functions -------------------------------------------------------------------
 function! s:Pattern()
     let l:pattern = '\s\+$'
 
@@ -29,38 +38,20 @@ function! s:Pattern()
     return l:pattern
 endfunction
 
-function! JumpToTrailingWhitespace#Jump( mode, isPrevious )
-    if a:mode ==# 'v'
-	normal! gv
-    endif
-
-    if search(s:Pattern(), (a:isPrevious ? 'b' : ''))
-	" Open the fold at the jump target, like the built-in jumps do.
-	normal! zv
-    else
-	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
-    endif
+function! JumpToTrailingWhitespace#Forward( mode )
+    call CountJump#CountJump(a:mode, s:Pattern(), '')
+endfunction
+function! JumpToTrailingWhitespace#Backward( mode )
+    call CountJump#CountJump(a:mode, s:Pattern(), 'b')
 endfunction
 
-function! s:CreateMotionMappings()
-    for l:mode in ['n', 'o', 'v']
-	for l:isPrevious in [0, 1]
-	    let l:targetMapping = '<Plug>(JumpToTrailingWhitespace' . (l:isPrevious ? 'Prev' : 'Next') . ')'
-	    execute printf('%snoremap %s :<C-u>call JumpToTrailingWhitespace#Jump(%s, %d)<CR>',
-	    \	l:mode,
-	    \	l:targetMapping,
-	    \	string(l:mode),
-	    \	l:isPrevious
-	    \)
-	    if ! hasmapto(l:targetMapping, l:mode)
-		execute (l:mode ==# 'v' ? 'x' : l:mode) . 'map <silent> ' . (l:isPrevious ? '[' : ']') . '$ ' . l:targetMapping
-	    endif
-	endfor
-    endfor
-endfunction
 
-call s:CreateMotionMappings()
-delfunction s:CreateMotionMappings
+"- mappings --------------------------------------------------------------------
+
+call CountJump#Motion#MakeBracketMotionWithJumpFunctions('', g:JumpToTrailingWhitespace_mapping, '',
+\   function('JumpToTrailingWhitespace#Forward'),
+\   function('JumpToTrailingWhitespace#Backward'),
+\   '', '', 0)
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
