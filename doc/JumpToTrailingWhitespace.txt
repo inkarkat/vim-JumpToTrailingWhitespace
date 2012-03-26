@@ -6,7 +6,6 @@ description			|JumpToTrailingWhitespace-description|
 usage				|JumpToTrailingWhitespace-usage|
 installation			|JumpToTrailingWhitespace-installation|
 configuration			|JumpToTrailingWhitespace-configuration|
-integration			|JumpToTrailingWhitespace-integration|
 limitations			|JumpToTrailingWhitespace-limitations|
 known problems			|JumpToTrailingWhitespace-known-problems|
 todo				|JumpToTrailingWhitespace-todo|
@@ -21,18 +20,18 @@ of each line. (Usually in order to remove it).
 RELATED WORKS								     *
 
 This plugin leverages the superior detection and customization facilities of
-the companion |ShowTrailingWhitespace.vim| plugin (vimscript #0000), though it
+the companion |ShowTrailingWhitespace.vim| plugin (vimscript #3966), though it
 can also be used without it if you're not interested in highlighting and
 customizing.
 
 Instead of jumping and deleting each occurrence manually, you can use the
-companion |DeleteTrailingWhitespace.vim| (vimscript #0000) plugin to strip off
+companion |DeleteTrailingWhitespace.vim| (vimscript #3967) plugin to strip off
 the trailing whitespace with one command, or even have this done automatically
 on each write.
 
 ==============================================================================
 USAGE					      *JumpToTrailingWhitespace-usage*
-
+					 *]$* *[$* *v_]$* *v_[$* *o_]$* *o_[$*
 ]$			Go to [count] next occurrence of trailing whitespace.
 [$			Go to [count] previous occurrence of trailing
 			whitespace.
@@ -55,7 +54,8 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES			       *JumpToTrailingWhitespace-dependencies*
 
 - Requires Vim 7.0 or higher.
-- The |ShowTrailingWhitespace.vim| plugin (vimscript #0000) complements this
+- Requires the CountJump plugin (vimscript #3130).
+- The |ShowTrailingWhitespace.vim| plugin (vimscript #3966) complements this
   script, but is not required. With it, the jumps consider the whitespace
   exceptions for certain filetypes.
 
@@ -69,9 +69,6 @@ To change the default mappings from ]$ to ]x, use: >
     let g:JumpToTrailingWhitespace_mapping = 'x'
 <
 ==============================================================================
-INTEGRATION				*JumpToTrailingWhitespace-integration*
-
-==============================================================================
 LIMITATIONS				*JumpToTrailingWhitespace-limitations*
 
 KNOWN PROBLEMS			     *JumpToTrailingWhitespace-known-problems*
@@ -83,7 +80,7 @@ IDEAS					      *JumpToTrailingWhitespace-ideas*
 ==============================================================================
 HISTORY					    *JumpToTrailingWhitespace-history*
 
-1.00	07-Mar-2012
+1.00	16-Mar-2012
 First published version.
 
 0.01	07-Mar-2012
