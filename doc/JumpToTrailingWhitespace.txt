@@ -67,7 +67,9 @@ For a permanent configuration, put the following commands into your |vimrc|:
 					  *g:JumpToTrailingWhitespace_mapping*
 To change the default mappings from ]$ to ]x, use: >
     let g:JumpToTrailingWhitespace_mapping = 'x'
-<
+To also change the [ / ] prefix to something else, follow the instructions for
+|CountJump-remap-motions|. (This requires CountJump 1.51.)
+
 ==============================================================================
 LIMITATIONS				*JumpToTrailingWhitespace-limitations*
 
