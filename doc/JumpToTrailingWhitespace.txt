@@ -64,7 +64,7 @@ CONFIGURATION			      *JumpToTrailingWhitespace-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
 
-					  *g:JumpToTrailingWhitespace_Mapping*
+					      *JumpToTrailingWhitespace-remap*
 To change the default mappings from ]$ to ]x, use: >
     let g:JumpToTrailingWhitespace_Mapping = 'x'
 To also change the [ / ] prefix to something else, follow the instructions for
